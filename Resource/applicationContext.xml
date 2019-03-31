@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+">
+    <!--开启注解注入属性-->
+    <context:annotation-config/>
+
+    <bean id="user" class="Blog.Model.User"></bean>
+    <bean id="artical" class="Blog.Model.Artical"></bean>
+    <bean id="pageBean" class="Blog.Model.PageBean"></bean>
+    <bean id="favorite" class="Blog.Model.Favorite"></bean>
+
+    <bean id="loginservices" class="Blog.Services.LoginServicesImpl"></bean>
+    <bean id="userservices" class="Blog.Services.UserServicesImpl"></bean>
+    <bean id="articalservices" class="Blog.Services.ArticalServicesImpl"></bean>
+
+    <!--数据访问层交给Spring管理，并输入SessionFactory，会自动生成HibernateTemplate-->
+    <bean id="loginDao" class="Blog.Dao.LoginDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="userDao" class="Blog.Dao.UserDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="articalDao" class="Blog.Dao.ArticalDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!--Action类交给Spring管理-->
+    <bean id="loginAction" class="Blog.web.LoginAction" scope="prototype"></bean>
+    <bean id="userAction" class="Blog.web.UserAction" scope="prototype"></bean>
+    <bean id="checkCode" class="Blog.web.CheckCodeAction" scope="prototype"></bean>
+    <bean id="articalAction" class="Blog.web.ArticalAction" scope="prototype"></bean>
+    <!--引入数据库配置文件-->
+    <import resource="hibernateapplication.xml"></import>
+</beans>

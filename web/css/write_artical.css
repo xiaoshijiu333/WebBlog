@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#header{
+    height: 60px;
+}
+#header .h_center {
+    position: relative;
+    margin: 0 auto;
+    width: 1200px;
+    height: 60px;
+}
+#header .h_center img {
+    height: 45px;
+    float: left;
+    margin-top: 5px;
+}
+#body{
+    position: relative;
+    height: 950px;
+    background: #F7F7F7;
+}
+#body .center{
+    position: absolute;
+    width: 1000px;
+    height: 830px;
+    left: 160px;
+    top: 35px;
+    background: white;
+}
+#body .center .umedit_wf{
+    margin-left: 50px;
+    height: 530px;
+}
+#body .center .form_div{
+    height: 170px;
+}
+#body .center .form_div div{
+    margin-left: 50px;
+    margin-top: 40px;
+}
+#body .center .form_div div input{
+    width: 270px;
+    height: 30px;
+    margin-left: 30px;
+}
+#body .center .form_div div select{
+    width: 120px;
+    height: 30px;
+    margin-left: 30px;
+}
+#body .center button{
+    background: #595959;
+    border: none;
+    color: white;
+    height: 30px;
+    width: 60px;
+    margin-top: 15px;
+    margin-left: 50px;
+}

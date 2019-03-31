@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#header {
+    height: 60px;
+}
+
+#header .h_center {
+    position: relative;
+    margin: 0 auto;
+    width: 1200px;
+    height: 60px;
+}
+
+#header .h_center img {
+    height: 45px;
+    float: left;
+    margin-top: 5px;
+}
+
+#header .h_center .a1 {
+    position: absolute;
+    text-align: left;
+    width: 150px;
+    top: 20px;
+    right: 10px;
+    color: #6c6c6c;
+    font-size: 16px;
+}
+
+#header .h_center .a2 {
+    position: absolute;
+    text-align: right;
+    width: 70px;
+    top: 20px;
+    right: 200px;
+    color: #6c6c6c;
+    font-size: 16px;
+}
+
+#header .h_center .a3 {
+    position: absolute;
+    text-align: center;
+    width: 70px;
+    top: 20px;
+    right: 290px;
+    color: #6c6c6c;
+    font-size: 16px;
+}
+
+#header .h_center a {
+    text-decoration: none;
+}
+
+#header .h_center a:hover {
+    color: #B22222;
+}
+
+#body {
+    height: 1150px;
+    background: #F7F7F7;
+}
+
+#body .body_center {
+    margin: 0 auto;
+    width: 1200px;
+    height: 530px;
+}
+
+#body .body_center .center_left {
+    margin-top: 20px;
+    float: left;
+    width: 200px;
+    height: 300px;
+}
+
+#body .body_center .center_left a{
+    float: left;
+    width: 200px;
+    height: 35px;
+    background: white;
+    color: #6c6c6c;
+    font-size: 16px;
+    line-height: 35px;
+    padding-left: 10px;
+    text-decoration: none;
+}
+#body .body_center .center_left .aa{
+    color: white;
+    background: #CD2626;
+}
+
+#body .body_center .center_left a:hover {
+    color: #CD2626;
+    background: #EED5D2;
+}
+#body .body_center .center_center {
+    margin-left: 5px;
+    margin-top: 20px;
+    float: left;
+    background: white;
+    width: 880px;
+    height: 1100px;
+    position: relative;
+}
+#body .body_center .center_center .center_head {
+    margin-left: 40px;
+    margin-right: 40px;
+    border-bottom: 1px solid #EAEAEA;
+    height: 100px;
+}
+
+#body .body_center .center_center .center_head h3 {
+    display: inline-block;
+    padding-top: 40px;
+}
+#body .body_center .center_center .center_head span {
+    float: right;
+    margin-top: 43px;
+    margin-right: 17px;
+}
+#body .body_center .center_center .centext .artical{
+    margin-left: 40px;
+    margin-right: 40px;
+    height: 130px;
+    font-size: 14px;
+    border-bottom: 1px solid #EAEAEA;
+}
+#body .body_center .center_center .centext .artical .title{
+    font-size: 20px;
+    padding-top: 10px;
+}
+#body .body_center .center_center .centext .artical .title a{
+    color: black;
+    text-decoration: none;
+}
+#body .body_center .center_center .centext .artical .title a:hover{
+    color: #CD2626;
+}
+#body .body_center .center_center .centext .artical .desc{
+    height: 50px;
+    padding-top: 10px;
+}
+#body .body_center .center_center .centext .artical .abottom{
+    height: 39px;
+    padding-top: 5px;
+}
+#body .body_center .center_center .centext .artical .abottom img{
+    border-radius: 70%;
+    height: 30px;
+    width: 30px;
+    vertical-align: middle;
+}
+#body .body_center .center_center .centext .artical .abottom span{
+    margin-left: 10px;
+    vertical-align: middle;
+}
+#body .body_center .center_center .centext .artical .abottom a{
+    color: #0073A9;
+    text-decoration: none;
+}
+#body .body_center .center_center .pagepage{
+    margin-top: 18px;
+    float: right;
+    margin-right: 40px;
+    height: 35px;
+    width: 750px;
+}

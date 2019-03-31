@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+
+    <package name="struts" extends="struts-default">
+
+        <!--配置拦截器-->
+        <interceptors>
+            <interceptor name="loginInterceptor" class="Blog.web.Interceptor.LoginInterceptor"/>
+        </interceptors>
+        
+        
+        <global-results>
+            <result name="login" type="redirect">Html/login.html</result>
+        </global-results>
+
+        <!--交给Spring管理，这里的class填写spring中的id-->
+        <action name="blog_*" class="loginAction" method="{1}">
+            <result name="success" type="redirect">Html/login.html</result>
+            <result name="exit" type="redirect">index.html</result>
+            <allowed-methods>unamelogin,emaillogin,CheckCode,regist,HaveSession,ExitLogin</allowed-methods>
+        </action>
+
+
+        <!--验证码-->
+        <action name="CheckCode" class="checkCode"></action>
+
+
+        <action name="user_*" class="userAction" method="{1}">
+            <!--引用拦截器-->
+            <interceptor-ref name="loginInterceptor">
+                <!--拦截的方法-->
+                <param name="includeMethods">personal,favorite,fans</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success">WEB-INF/html/personal.html</result>
+            <result name="update" type="redirectAction">user_getUser.action</result>
+            <result name="person">WEB-INF/html/personal.html</result>
+            <result name="favorite">WEB-INF/html/favorite.html</result>
+            <result name="fans">WEB-INF/html/fans.html</result>
+            <allowed-methods>favoriteNum,fansNum,fansNum2,getUser,getUserJson,
+                UpdateUser,OneUname,OneEmail,personal,UserPicture,favoritePeople
+                ,IsnotFans,notfavorite,AllFavorite,favorite,AllFans,fans,GetUser</allowed-methods>
+        </action>
+
+
+        <action name="artical_*" class="articalAction" method="{1}">
+            <!--引用拦截器-->
+            <interceptor-ref name="loginInterceptor">
+                <!--放行的方法-->
+                <param name="excludeMethods">AllCatagory,AllPageList,getArticalById,
+                    GetCataById,getArticalCount,PageList</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="write" type="redirect">Html/write_artical.html</result>
+            <result name="myartical">WEB-INF/html/artical.html</result>
+            <result name="delete" type="redirectAction">artical_myartical.action</result>
+            <result name="update" type="redirectAction">artical_myartical.action</result>
+            <result name="detail">WEB-INF/html/detail.html</result>
+            <result name="like">WEB-INF/html/likeartical.html</result>
+            <result name="add" type="redirectAction">artical_myartical.action</result>
+            <allowed-methods>AllCatagory,AddArtical,WriteArtical,PageList,myartical
+                ,deleteArtical,getArticalById,updateArtical,detail,GetCataById,AllPageList
+                ,getArticalCount,likeArtical,IsLikeArtical,notlikeArtical,AllLikeArtical
+            ,like</allowed-methods>
+        </action>
+
+    </package>
+
+</struts>

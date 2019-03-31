@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改博客界面</title>
+    <link href="../images/title.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="../css/write_artical.css">
+    <script src="../js/jquery.main.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../umedit/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../umedit/ueditor.all.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="../umedit/lang/zh-cn/zh-cn.js"></script>
+</head>
+<body>
+<div id="header">
+    <div class="h_center">
+        <img src="../images/title.jpg">
+    </div>
+</div>
+<div id="body">
+    <div class="center">
+        <form action="artical_updateArtical.action" id="form_artical"  method="post">
+            <div class="form_div">
+                <div>
+                    <label>文章标题</label>
+                    <input type="text" name="artical_title" id="artical_title">
+                </div>
+                <div>
+                    <label>所属分类</label>
+                    <select id="Catagory" name="catagory.parentid">
+                        <!--在js中动态的取数据-->
+                    </select>
+                    <select id="ChildCata" name="catagory.cid"></select>
+                </div>
+                <div style="margin-top: 40px">
+                    <label>文章内容</label>
+                </div>
+                <!--隐藏一个input发送文章简介（artical_desc）和文章id（artical_id）参数-->
+                <input type="text" name="artical_desc" id="artical_desc" style="display: none">
+                <input type="text" name="artical_id" id="artical_id" style="display: none">
+                <!--设置一个input，存放富文本的内容-->
+                <input type="hidden" id="artical_context">
+            </div>
+            <!--集成富文本编辑器-->
+            <div class="umedit_wf">
+                <div id="editor" name="artical_context" style="width:900px;height:400px;"></div>
+            </div>
+            <button type="button" id="send_form">确认修改</button>
+        </form>
+    </div>
+</div>
+<script>
+
+    //初始化富文本编程器
+    var ue = UE.getEditor("editor",{scaleEnabled:true});
+
+    //加载主分类
+    $(function () {
+        $.ajax({
+            url:"artical_AllCatagory.action",
+            type:"post",
+            dataType:"json",
+            success:function (data) {
+                $(data).each(function (i,obj) {
+                    $("#Catagory").append("<option value="+obj.cid+">"+obj.cname+"</option>");
+                })
+                //显示分类，避免两个ajax冲突
+                MyAjax();
+            }
+        })
+    })
+
+
+    //加载子分类
+    $("#Catagory").change(function () {
+        var parentid=$("#Catagory").val();
+        $.ajax({
+            url:"artical_AllCatagory.action",
+            type:"post",
+            dataType:"json",
+            data:{"parentid":parentid},
+            success:function (data) {
+                //清空之前的option
+                $("#ChildCata").empty();
+                $(data).each(function (i,obj) {
+                    $("#ChildCata").append("<option value="+obj.cid+">"+obj.cname+"</option>");
+                })
+            }
+        })
+    })
+
+    //拿到地址栏的aitical_id的值
+    function getParams(key) {
+        var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) {
+            return unescape(r[2]);
+        }
+        return null;
+    };
+
+
+    function MyAjax() {
+
+        var artical_id = getParams("artical_id");
+
+        //发送ajax请求获取数据
+        $.ajax({
+            url:"artical_getArticalById.action",
+            type:"post",
+            dataType:"json",
+            data:{"artical_id":artical_id},
+            success:function (artical) {
+                //显示数据
+                $("#artical_title").val(artical.artical_title);
+                $("#artical_id").val(artical.artical_id);
+                //加载两个分类
+                $("#Catagory").val(artical.catagory.parentid);
+
+                //加载子类，！！！！...
+                $.ajax({
+                    url:"artical_AllCatagory.action",
+                    type:"post",
+                    dataType:"json",
+                    data:{"parentid":artical.catagory.parentid},
+                    success:function (data) {
+                        //清空之前的option
+                        $("#ChildCata").empty();
+                        $(data).each(function (i,obj) {
+                            $("#ChildCata").append("<option value="+obj.cid+">"+obj.cname+"</option>");
+                        })
+                        $("#ChildCata").val(artical.catagory.cid);
+                    }
+                })
+
+                //回显富文本数据，要先把放到一个input里面
+                $("#artical_context").val(artical.artical_context);
+                //数据显示
+                ue.ready(function () {
+                    ue.execCommand("inserthtml",$("#artical_context").val());
+                })
+            }
+        })
+
+    }
+
+    //提交表单，上传文章
+    $("#send_form").click(function () {
+
+        //生成文章摘要
+        //拿到富文本正文，截取前20个字符，赋值给摘要描述
+        var text=ue.getContentTxt();
+        var text2=text.substring(0,100)+"...";
+        $("#artical_desc").val(text2);
+        //提交表单
+        if($("#artical_title").val()==""){
+            alert("文章标题不能为空！！");
+            return;
+        }else if(text==""){
+            alert("文章内容不能为空！！");
+            return;
+        } else {
+            $("#form_artical").submit();
+        }
+    })
+
+</script>
+</body>
+</html>

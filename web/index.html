@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>博客首页</title>
+    <link href="images/title.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/pageStyle.css">
+    <script src="js/jquery.main.js"></script>
+    <script src="js/paging.js"></script>
+</head>
+<body>
+<div id="header">
+    <div class="h_center">
+        <img src="images/title.jpg">
+        <a href="Html/regist.html" class="a0" style="display: none">注册</a>
+        <a href="Html/login.html" class="a1" style="display: none">登录/</a>
+        <a href="user_personal.action" class="aa" style="display: none" target="_blank"></a>
+        <a href="artical_WriteArtical.action" class="a2" target="_blank">写博客</a>
+        <a href="" class="a3">博客首页</a>
+        <div class="borderr">
+            <a onclick="KeySearch(1)" href="javascript:;"><img src="images/search.png" class="a4"></a>
+            <input type="text" placeholder="关键词搜索博客" id="search_artical">
+        </div>
+    </div>
+</div>
+<div id="body">
+    <div class="body_center">
+        <div class="center_left">
+            <ul id="ul_catagory">
+                <a href="index.html">
+                    <li class="index">首页</li>
+                </a>
+                <!--在下面取数据...-->
+            </ul>
+        </div>
+        <div class="center_center">
+            <div class="center_head">
+                <ul id="childCata">
+                    <!--在下面取数据...-->
+                </ul>
+            </div>
+            <div class="centext"></div>
+            <div class="pagepage">
+                <div class="page_div"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--使用JsTemplate模板-->
+<script src="js/template.js"></script>
+<script src="js/index.js" type="text/javascript"></script>
+
+<script id="mytemp2" type="text/html">
+    {{each list as values}}
+        <div class="artical">
+            <div class="title"><a href="index_detail.html?artical_id={{values.artical_id}}" target="_blank">
+                <b>{{values.artical_title}}</b></a></div>
+            <div class="desc">{{values.artical_desc}}</div>
+            <div class="abottom">
+                <a href="person.html?uid={{values.user.uid}}" target="_blank">
+                    {{if values.user.upicture==undefined}}
+                        <img src="images/timg.jpg">
+                    {{else}}
+                        <img src="upload/{{values.user.upicture}}">
+                    {{/if}}
+                    <span>{{values.user.uname}}</span>
+                </a>
+                <span>{{values.artical_time}}</span>
+            </div>
+        </div>
+    {{/each}}
+</script>
+
+</html>

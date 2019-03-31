@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的文章</title>
+    <link href="images/title.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="css/favorite.css">
+    <link rel="stylesheet" href="css/pageStyle.css">
+    <script src="js/jquery.main.js"></script>
+    <script src="js/paging.js"></script>
+</head>
+<body>
+<div id="header">
+</div>
+<div id="body">
+    <div class="body_center">
+        <div class="center_left">
+            <a href="user_personal.action">个人资料</a>
+            <a href="artical_like.action">我的收藏</a>
+            <a href="artical_myartical.action">我的文章</a>
+            <a href="user_favorite.action">我的关注</a>
+            <a href="user_fans.action" class="aa">我的粉丝</a>
+            <a href="" id="aperson" target="_blank">个人主页</a>
+        </div>
+        <div class="center_center">
+            <div class="center_head">
+                <h3>我的粉丝</h3>
+                <span id="number"></span>
+            </div>
+            <div class="centext" id="fans">
+            </div>
+            <div class="pagepage">
+                <div class="page_div"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--使用JsTemplate模板-->
+<script src="js/template.js"></script>
+<script src="js/fans.js"></script>
+
+<!--模板取分页数据-->
+<script id="mytemp1" type="text/html">
+    {{each list as values}}
+        <div class="fans">
+            <a href="">
+                {{if values.favoriteuser.upicture==undefined}}
+                <img src="images/timg.jpg">
+                {{else}}
+                <img src="upload/{{values.user.upicture}}">
+                {{/if}}
+                <span>{{values.user.uname}}</span>
+            </a>
+            <a class="unfollow" href="" id="{{values.user.uid}}"></a>
+        </div>
+    {{/each}}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的文章</title>
+    <link href="images/title.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="css/artical.css">
+    <link rel="stylesheet" href="css/pageStyle.css">
+    <script src="js/jquery.main.js"></script>
+    <script src="js/paging.js"></script>
+    <link rel="stylesheet" href="../../css/artical.css">
+</head>
+<body>
+<div id="header">
+</div>
+<div id="body">
+    <div class="body_center">
+        <div class="center_left">
+            <a href="user_personal.action">个人资料</a>
+            <a href="artical_like.action">我的收藏</a>
+            <a href="artical_myartical.action" class="aa">我的文章</a>
+            <a href="user_favorite.action">我的关注</a>
+            <a href="user_fans.action">我的粉丝</a>
+            <a href="" id="aperson" target="_blank">个人主页</a>
+        </div>
+        <div class="center_center">
+            <div class="center_head">
+                <h3>我的文章</h3>
+                <span id="number"></span>
+            </div>
+            <div class="centext" id="artical">
+                <!--在JsTemplate里面取数据-->
+            </div>
+            <div class="pagepage">
+                <div class="page_div"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--使用JsTemplate模板-->
+<script src="js/template.js"></script>
+<script src="js/artical.js"></script>
+
+<!--模板取分页数据-->
+<script id="mytemp1" type="text/html">
+    {{each list as values}}
+    <div class="artical">
+        <div class="title"><a
+                href="artical_detail.action?artical_id={{values.artical_id}}"><b>{{values.artical_title}}</b></a></div>
+        <div class="desc">{{values.artical_desc}}</div>
+        <div class="time">
+            <span>{{values.artical_time}}</span>
+            <a href="artical_deleteArtical.action?artical_id={{values.artical_id}}" style="color: red">删除</a>
+            <a href="Html/edit_artical.html?artical_id={{values.artical_id}}" target="_blank">修改</a>
+            <a href="artical_detail.action?artical_id={{values.artical_id}}">查看</a>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+</body>
+</html>

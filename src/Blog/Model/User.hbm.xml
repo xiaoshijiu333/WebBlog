@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Blog.Model.User" table="user" >
+        <!--建立类属性哪一个是主键  还要跟数据库当中主键进行对象-->
+        <id name="uid" column="uid">
+            <generator class="native"/>
+        </id>
+        <!--建立类中的普通属性与数据库当中字段进行关联-->
+        <property name="uname" column="uname" />
+        <property name="password" column="password"/>
+        <property name="uemail" column="uemail"/>
+        <property name="usex" column="usex"/>
+        <property name="uarea" column="uarea"/>
+        <property name="ujob" column="ujob"/>
+        <property name="udesc" column="udesc"/>
+        <property name="upicture" column="upicture"/>
+
+        <!--用户收藏多个文章，多对多关系映射-->
+        <set name="articallike" table="userlikeartical">
+            <key column="uid"></key>
+            <many-to-many class="Blog.Model.Artical" column="artical_id"></many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
+
